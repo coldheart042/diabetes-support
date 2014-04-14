@@ -27,7 +27,7 @@ namespace Support
                 SmtpClient sc = new SmtpClient("192.168.12.0");
                 sc.Send(mail);
             }
-            catch (HttpException ex)
+            catch (Exception ex)
             {
                 lblError.Text = ex.ToString();
             }
