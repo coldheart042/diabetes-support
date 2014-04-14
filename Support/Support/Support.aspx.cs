@@ -24,7 +24,7 @@ namespace Support
             mail.Subject = "Diabetes App Support Question";
             try
             {
-                SmtpClient sc = new SmtpClient();
+                SmtpClient sc = new SmtpClient("192.168.12.0");
                 sc.Send(mail);
             }
             catch (HttpException ex)
