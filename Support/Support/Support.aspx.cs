@@ -17,19 +17,27 @@ namespace Support
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            MailAddress r = new MailAddress("coldheart042@gmail.com");
+            MailAddress r = new MailAddress("coldheart042@yahoo.com");
             MailAddress t = new MailAddress(txtEmail.Text);
             MailMessage mail = new MailMessage(t,r);
-            mail.Body = txtQuestion.Text;
+            mail.Body = "New question from: " + txtEmail.Text + " " + txtQuestion.Text;
             mail.Subject = "Diabetes App Support Question";
             try
             {
-                SmtpClient sc = new SmtpClient("192.168.12.0");
+                SmtpClient sc = new SmtpClient("smtp.gmail.com");
+                sc.UseDefaultCredentials = false;
+                System.Net.NetworkCredential c = new System.Net.NetworkCredential("coldheart042@gmail.com", "T0M4H4WK");
+                sc.Credentials = c;
+                sc.Port = 587;
+                sc.EnableSsl = true;
+                
                 sc.Send(mail);
+                txtEmail.Text = "";
+                txtQuestion.Text = "";
             }
-            catch (HttpException ex)
+            catch (Exception ex)
             {
-                lblError.Text = ex.ToString();
+                lblError.Text = ex.Message;
             }
         }
     }
